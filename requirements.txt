@@ -1,0 +1,13 @@
+streamlit
+python-chess
+stockfish
+web3
+eth-account
+streamlit-wallet-connect  # for MetaMask connect (limited)
+requests
+python-0g
+0g-inference-sdk
+openai
+mnemonic
+python-dotenv
+0g-storage-sdk
