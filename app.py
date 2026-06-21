@@ -19,7 +19,12 @@ from core.indexer import Indexer
 from core.file import ZgFile
 
 
-load_dotenv()
+load_dotenv(override=True)
+
+# Debug helper - remove after it works
+if not os.getenv("PRIVATE_KEY"):
+    st.error("❌ PRIVATE_KEY not found! Check your .env file")
+    st.info("Make sure the file is named exactly `.env` (with the dot) and is in the same folder as app.py")
 
 st.set_page_config(page_title="0G Chess Agent ♟️", layout="wide")
 st.title("0G Chess Agent — Your Personalized AI with Wallet")
