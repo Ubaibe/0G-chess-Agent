@@ -397,8 +397,16 @@ with st.sidebar:
 
     stockfish_path = st.text_input(
         "Stockfish Executable Path",
-        value=r"C:\Users\Ibe\Downloads\stockfish-windows-x86-64-avx2\stockfish\stockfish-windows-x86-64-avx2.exe"
+        value="./stockfish/stockfish.exe" if os.name == "nt" else "stockfish"
     )
+    # Auto-detect / fallback
+    if st.button("Test Stockfish"):
+        try:
+            sf = Stockfish(path=stockfish_path)
+            st.success(f"✅ Stockfish working! Version: {sf.get_stockfish_version()}")
+        except Exception as e:
+            st.error(f"Stockfish Error: {e}")
+            st.info("Make sure stockfish/ folder is in your repo and committed")
     if st.button("Generate New Persona on 0G"):
         system = "You are a witty, slightly cocky chess grandmaster living on the 0G blockchain."
         persona = get_agent_response(
