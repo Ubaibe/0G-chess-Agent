@@ -395,39 +395,37 @@ with st.sidebar:
     agent_name = st.text_input("Agent Name", value="GambitZero")
     difficulty = st.slider("Stockfish Depth (Elo ~)", 8, 20, 12)
 
-        # ====================== STOCKFISH SETUP ======================
-    st.subheader("♟️ Stockfish Engine")
-    
-    # Smart default path
-    default_path = "./stockfish/stockfish.exe" if os.name == "nt" else "./stockfish/stockfish"
-    
+         # Smart path detection for local Windows + Streamlit Cloud (Linux)
+    if os.name == "nt":  # Windows
+        default_path = "./stockfish/stockfish.exe"
+    else:  # Linux (Streamlit Cloud)
+        default_path = "./stockfish/stockfish"
+
     stockfish_path = st.text_input(
         "Stockfish Executable Path",
         value=default_path
     )
 
-    # Auto-fallback for Streamlit Cloud
+    # Auto fallback
     if not os.path.exists(stockfish_path):
-        possible_paths = [
-            "./stockfish/stockfish",           # Linux (most important for cloud)
-            "./stockfish/stockfish.exe",
+        fallback = [
+            "./stockfish/stockfish",           # Linux
+            "./stockfish/stockfish.exe",       # Windows
             "stockfish",
             "/usr/games/stockfish"
         ]
-        for p in possible_paths:
+        for p in fallback:
             if os.path.exists(p):
                 stockfish_path = p
                 break
-        else:
-            st.warning("Stockfish binary not found. Please check the stockfish/ folder.")
 
-    # Test button
     if st.button("🔍 Test Stockfish"):
         try:
             sf = Stockfish(path=stockfish_path)
-            st.success(f"✅ Stockfish working! Version: {sf.get_stockfish_version()}")
+            st.success(f"✅ Stockfish Connected! Version: {sf.get_stockfish_version()}")
         except Exception as e:
             st.error(f"❌ Stockfish Error: {e}")
+            st.info("Make sure the `stockfish/` folder is committed to GitHub with the correct binary.")
             
     if st.button("Generate New Persona on 0G"):
         system = "You are a witty, slightly cocky chess grandmaster living on the 0G blockchain."
