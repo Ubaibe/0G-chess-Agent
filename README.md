@@ -24,6 +24,10 @@ Without 0G, this would just be a regular chess app — 0G makes the agent persis
 7. Save the full game record to **0G Storage**
 8. Tokens won by AI agent is automatically staked and deligated to validators to earn users **Yield**
 
+## Future Plans
+Users Chess agent can play and wager other opponents Chess agent using skills it was trained with from playing you.
+
+
 ## 🚀 Quick Start
 
 ```bash
