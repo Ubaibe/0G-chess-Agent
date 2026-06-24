@@ -27,7 +27,7 @@ st.set_page_config(page_title="0G Chess Agent ♟️", layout="wide")
 st.title("0G Chess Agent — Your Personalized AI with Wallet")
 
 
-# ====================== PURE PYTHON CHESS AI ======================
+# ====================== PYTHON CHESS AI ======================
 def evaluate_board(board):
     """Simple evaluation function"""
     if board.is_checkmate():
@@ -176,7 +176,7 @@ def save_game_to_0g_storage():
             upload_opts
         )
 
-        Path(tmp_path).unlink()  # Clean up temp file
+        Path(tmp_path).unlink() 
 
         if err is None and result:
             merkle_root = result.get("rootHash") or result.get("merkleRoot")
@@ -216,7 +216,7 @@ def get_web3():
 
 w3 = get_web3()
 
-# === YOUR DEPLOYED CONTRACT ===
+# === DEPLOYED CONTRACT ===
 CONTRACT_ADDRESS = "0x0e19AD499f5462fF00106F88393f2F1eb205B46c"
 
 contract_abi = [
@@ -459,7 +459,7 @@ with st.sidebar:
     # Smart path detection for local Windows + Streamlit Cloud (Linux)
     if os.name == "nt":  # Windows
         default_path = "./stockfish/stockfish.exe"
-    else:  # Linux (Streamlit Cloud)
+    else:  # Linux
         default_path = "./stockfish/stockfish"
 
     stockfish_path = st.text_input(
